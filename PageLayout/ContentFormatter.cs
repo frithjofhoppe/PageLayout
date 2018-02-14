@@ -8,14 +8,14 @@ namespace PageLayout
 {
     public class ContentFormatter
     {
-        List<String> _raw { get; }
-        private List<String> _formatted { get; }
-        int _lineWidth { get; }
+        List<String> Raw { get; }
+        public List<String> Formatted { get; }
+        int LineWidth { get; }
         public ContentFormatter(List<String> raw, int lineWidth)
         {
-            _raw = raw;
-            _lineWidth = lineWidth;
-            _formatted = new List<String>();
+            Raw = raw;
+            LineWidth = lineWidth;
+            Formatted = new List<String>();
             Format();
         }
 
@@ -24,7 +24,7 @@ namespace PageLayout
             String rawString = "";
             String lineContent = "";
             int charCount = 0;
-            _raw.ForEach(item => rawString += item);
+            Raw.ForEach(item => rawString += item);
             List<String> rawList = new List<String>();
             List<String> rawList1 = rawString.Split('\n').ToList();
             rawList1.ForEach(item => {
@@ -38,19 +38,19 @@ namespace PageLayout
             int listCount = rawList.Count;
 
             rawList.ForEach(word => {
-                if(charCount + word.Length > _lineWidth)
+                if(charCount + word.Length > LineWidth)
                 {
                     if (lineContent.Length == 0)
                     {
                         lineContent = lineContent + word;
-                        _formatted.Add(lineContent);
+                        Formatted.Add(lineContent);
                         lineContent = "";
                         charCount = 0;
                     }
                     else
                     {
                         lineContent = lineContent.Remove(lineContent.Length - 1);
-                        _formatted.Add(lineContent);
+                        Formatted.Add(lineContent);
                         if(listCount != 1)
                         {
                             lineContent = "";
@@ -60,7 +60,7 @@ namespace PageLayout
                         }
                         else
                         {
-                            _formatted.Add(word);
+                            Formatted.Add(word);
                         }
                     }
                 }
@@ -74,7 +74,7 @@ namespace PageLayout
                     else
                     {
                         lineContent = lineContent + word;
-                        _formatted.Add(lineContent);
+                        Formatted.Add(lineContent);
                     }
                 }
                 listCount--;

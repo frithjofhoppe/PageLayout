@@ -8,9 +8,9 @@ namespace PageLayout
 {
     public class PageLayoutFormatterHandler
     {
-        private List<String> _rawContent { get; set; }
-        private List<String> _formattedContent { get; set; }
-        private int _widthInChars { get; set; }
+        private List<String> RawContent { get; set; }
+        private List<String> FormattedContent { get; set; }
+        private int WidthInChars { get; set; }
         public PageLayoutFormatterHandler(int widthInChars)
         {
             if(widthInChars < 1)
@@ -18,8 +18,8 @@ namespace PageLayout
                 throw new ArgumentException();
             }
 
-            _formattedContent = new List<String>(); 
-            _widthInChars = widthInChars;
+            FormattedContent = new List<String>(); 
+            WidthInChars = widthInChars;
         }
 
         public PageLayoutFormatterHandler(IContentInput input, int widthInChars) : this(widthInChars)
@@ -28,7 +28,7 @@ namespace PageLayout
             {
                 throw new ArgumentException();
             }
-            _rawContent = input.InputContent();
+            RawContent = input.InputContent();
         }
 
         public PageLayoutFormatterHandler(List<String> input, int widthInChars) : this(widthInChars)
@@ -37,19 +37,19 @@ namespace PageLayout
             {
                 throw new ArgumentException();
             }
-            _rawContent = input;
+            RawContent = input;
         }
 
         public List<String> FomrattedContent()
         {
             FormatProcess();
-            return _formattedContent;
+            return FormattedContent;
         }
 
         private void FormatProcess()
         {
-            ContentFormatter contentFormatter = new ContentFormatter(_rawContent, _widthInChars);
-            _formattedContent = contentFormatter._formatted;
+            ContentFormatter contentFormatter = new ContentFormatter(RawContent, WidthInChars);
+            FormattedContent = contentFormatter.Formatted;
         }
     }
 }
